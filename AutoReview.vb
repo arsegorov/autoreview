@@ -5,12 +5,14 @@ Sub InsertComment(par As Paragraph, firstIndex As Long, length As Long, message 
 ' and of scope length of @param length.
 ' The content of the comment is given by the @param message.
 '
-	Dim myRange As New Range
+	Dim myRange As Range
 	Dim cmt As Comment
 	
+	Set myRange = par.Range
+	
 	' We want to select the specified range in the paragraph and store it in myRange.
-	myRange.SetRange par.Range.Characters(firstIndex).Start, _
-		par.Range.Characters(firstIndex + length - 1).End
+	myRange.SetRange par.Range.Characters(firstIndex + 1).start, _
+		par.Range.Characters(firstIndex + length).End
 	
 	' Then we attach a comment cmt to the range, with a diagnostic message.
 	Set cmt = ActiveDocument.Comments.Add(myRange, message)
