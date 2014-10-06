@@ -1,38 +1,21 @@
-Sub InsertComment(par As Paragraph, firstIndex As Long, length As Long, messg As String)
+Sub InsertComment(par As Paragraph, firstIndex As Long, length As Long, message As String)
 '
 ' This macro inserts a comment in paragraph @param par
 ' with the scope starting at position @param firstIndex
 ' and of length @param length.
 ' The content of the comment is given by the @param message.
 '
-	Dim myRange As Range
+	Dim myRange As New Range
 	Dim cmt As Comment
-
+	
 	' We want to select the specified range in the paragraph and store it in myRange.
 
-	' Begin with the entire paragraph
-	Set myRange = par.Range
-
 	With myRange
-		' Then we trim the range at the end.
-		.End = .start + firstIndex + length
-
-		' Then we'd like to trim the range at the beginning.
-		
-		' However, whenever the paragraph contains any previously made comments before the end of the range,
-		' there is some shift in the range's starting and ending positions
-		' so we need to compensate for that.
-		
-		' Each comment before the end of the range seems to increase the starting and ending positions by 1,
-		' so we have to add the number of comments that were placed before the end of the range.
-		' (That was kind of unexpected and a *itch to figure out.) ;\
-		
-		n = .Comments.Count ' This gives the number of comments in myRange, which is what we want
-		.start = .End - length + n
-		.End = .End + n
+		.Start = par.Range.Characters(firstIndex).Start
+		.End = par.Range.Characters(firstIndex + length - 1).End
 		
 		' Then we attach a comment cmt to the range, with a diagnostic message.
-		Set cmt = .Comments.Add(myRange, messg)
+		Set cmt = .Comments.Add(myRange, message)
 	End With
 
 	With cmt ' some niceties
