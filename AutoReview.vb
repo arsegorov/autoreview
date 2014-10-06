@@ -2,22 +2,19 @@ Sub InsertComment(par As Paragraph, firstIndex As Long, length As Long, message 
 '
 ' This macro inserts a comment in paragraph @param par
 ' with the scope starting at position @param firstIndex
-' and of length @param length.
+' and of scope length of @param length.
 ' The content of the comment is given by the @param message.
 '
 	Dim myRange As New Range
 	Dim cmt As Comment
 	
 	' We want to select the specified range in the paragraph and store it in myRange.
-
-	With myRange
-		.Start = par.Range.Characters(firstIndex).Start
-		.End = par.Range.Characters(firstIndex + length - 1).End
-		
-		' Then we attach a comment cmt to the range, with a diagnostic message.
-		Set cmt = .Comments.Add(myRange, message)
-	End With
-
+	myRange.SetRange par.Range.Characters(firstIndex).Start, _
+		par.Range.Characters(firstIndex + length - 1).End
+	
+	' Then we attach a comment cmt to the range, with a diagnostic message.
+	Set cmt = ActiveDocument.Comments.Add(myRange, message)
+	
 	With cmt ' some niceties
 		.Author = "Auto Review" ' set the comment author's name
 		.Initial = "Auto" ' set the label that appears in the bubble
