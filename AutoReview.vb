@@ -106,43 +106,12 @@ Sub AutoReview()
 	' The pattern to catch:
 	' a punctuation mark right after an animator note
 	'
-	findAndComment "\[.*]\s*([.,:;])", _
-		"There's a punctuation marks right after the animator note."
+	findAndComment "]\s*([.,:;])", _
+		"There's a punctuation mark right after the animator note."
 	
-	' Taking care of a somewhat special case
-	
-	Dim regEx As New VBScript_RegExp_55.RegExp
-	regEx.IgnoreCase = True
-	regEx.Global = True
-		
 	' The pattern to catch:
 	' a word in front of a [w&t], [show], [popup], or [pop-up] instruction
 	' that doesn't match the first word being shown
-	'
-	regEx.pattern = "([\w]+)\s*[,.:;]?\s*\[\s*(?:w&t|show|popup|pop-up)\s*:?\s*([\w]+)"
-	
-	Dim matches As VBScript_RegExp_55.MatchCollection
-	Dim str As String
-	Dim line As Paragraph
-	
-	Dim first As String
-	Dim last As String
-
-	For Each line In ActiveDocument.paragraphs
-		str = line.Range.Text
-		
-		If regEx.Test(str) Then
-			Set matches = regEx.Execute(str)
-			
-			For Each Match In matches
-				first = Match.SubMatches(0)
-				last = Match.SubMatches(1)
-				
-				If Not LCase(first) = LCase(last) Then
-					InsertComment line, Match.firstIndex, Match.length, _
-						"Possible a/v sync issue. Voice doesn't match what appears on the screen."
-				End If
-			Next
-		End If
-	 Next
+	findAndComment "(\b\w+)\s*[,.:;]?\s*\[\s*(?:w\s*&\s*t|show|pop-?up)\s*[:\s]\s*(?:(?!\1)|(?=\1\w))\w+", _
+		"Possible a/v sync issue. Voice doesn't match what appears on the screen."
 End Sub
