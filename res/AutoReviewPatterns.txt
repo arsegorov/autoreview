@@ -1,0 +1,7 @@
+[a-zA-Z]+\s*['""]?\s*[.,:;]?\s*['""]?\s*\[\s*p(oint(s)?)?\s*]	There's a word in front of this [point]. A [point]'s default argument can only be a number.
+[a-zA-Z]+\s*['""]?\s*[.,:;]?\s*['""]?\s*\[\s*show\s*]	There's a word in front of this [show]. A [show]'s default argument can only be a number.
+[a-zA-Z]+\s*['""]?\s*[.,:;]?\s*['""]?\s*\[\s*i(ndicate(s)?)?\s*]	There's a word in front of this [indicate]. An [indicate]'s default argument can only be a number.
+[a-zA-Z]+\s*['""]?\s*[.,:;]?\s*['""]?\s*\[\s*w\s*&\s*t\s*]	There's a word in front of this [w&t]. A [w&t]'s default argument can only be a number.
+\d\s*\[(?:(?!]).)+?]\s*\d	Either a punctuation is missing after a number or a number is split by the animator note.
+]\s*([.,:;])	There's a punctuation mark right after the animator note.
+(\b\w+)\s*[,.:;]?\s*\[\s*(?:w\s*&\s*t|show|pop-?up)\s*[:\s]\s*(?:(?!\1)|(?=\1\w))\w+	Possible a/v sync issue. Voice doesn't match what appears on the screen.
