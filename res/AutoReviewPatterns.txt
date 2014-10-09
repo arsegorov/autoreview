@@ -1,7 +1,8 @@
-[a-zA-Z]+\s*['""]?\s*[.,:;]?\s*['""]?\s*\[\s*p(oint(s)?)?\s*]	There's a word in front of this [point]. A [point]'s default argument can only be a number.
-[a-zA-Z]+\s*['""]?\s*[.,:;]?\s*['""]?\s*\[\s*show\s*]	There's a word in front of this [show]. A [show]'s default argument can only be a number.
-[a-zA-Z]+\s*['""]?\s*[.,:;]?\s*['""]?\s*\[\s*i(ndicate(s)?)?\s*]	There's a word in front of this [indicate]. An [indicate]'s default argument can only be a number.
-[a-zA-Z]+\s*['""]?\s*[.,:;]?\s*['""]?\s*\[\s*w\s*&\s*t\s*]	There's a word in front of this [w&t]. A [w&t]'s default argument can only be a number.
-\d\s*\[(?:(?!]).)+?]\s*\d	Either a punctuation is missing after a number or a number is split by the animator note.
-]\s*([.,:;])	There's a punctuation mark right after the animator note.
-(\b\w+)\s*[,.:;]?\s*\[\s*(?:w\s*&\s*t|show|pop-?up)\s*[:\s]\s*(?:(?!\1)|(?=\1\w))\w+	Possible a/v sync issue. Voice doesn't match what appears on the screen.
+[a-z]+[.,:;?!'\u2018\u2019""\u201c\u201d\s]*\[\s*p(oint(s)?)?\s*]	There's a word in front of this [point]. A [point]'s default argument can only be a number.
+[a-z]+[.,:;?!'\u2018\u2019""\u201c\u201d\s]*\[\s*show\s*]	There's a word in front of this [show]. A [show]'s default argument can only be a number.
+[a-z]+[.,:;?!'\u2018\u2019""\u201c\u201d\s]*\[\s*i(ndicate(s)?)?\s*]	There's a word in front of this [indicate]. An [indicate]'s default argument can only be a number.
+[a-z]+[.,:;?!'\u2018\u2019""\u201c\u201d\s]*\[\s*w\s*&\s*t\s*]	There's a word in front of this [w&t]. A [w&t]'s default argument can only be a number.
+\d\s*\[[^\]]+?]\s*\d	A number may be split by an animator note.
+]\s*([.,:;?!])	There may be a punctuation mark right after an animator note.
+\b((?!(?:here|what|this))[a-z]{2,}(?:['\u2018\u2019]s)?)[,.:;?!""\u201c\u201d\s]*\[\s*(?:show|pop-?up)\s*[:\s]\s*(?:(?!\1)|(?=\1[\w'\u2018\u2019]))[\w'\u2018\u2019]+	Possible a/v sync issue. Voice doesn't literally match what appears on the screen.
+\b([a-z]{2,}(?:['\u2018\u2019]s)?)[,.:;?!""\u201c\u201d\s]*\[\s*w\s*&\s*t\s*[:\s]\s*(?:(?!\1)|(?=\1[\w'\u2018\u2019]))[\w'\u2018\u2019]+	Possible a/v sync issue. Voice doesn't literally match what appears on the screen.
