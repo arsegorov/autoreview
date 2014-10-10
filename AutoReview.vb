@@ -70,23 +70,23 @@ Sub AutoReview()
 
 	' Requires the "Microsoft Scripting Runtime" library enabled in Tools > References...
 	Dim fso As New FileSystemObject
+	'array of values in each line
+	Dim LineValues() As String
+	'each new line read in from the text stream
+	Dim ReadLine As String
+	Dim ts As TextStream
 	
-	'open file
 	If Not fso.FileExists("C:\Users\" + uName + "\Desktop\AutoReviewPatterns.txt") Then
 		MsgBox "Can't find the patterns file. Put the patterns file, ""AutoReviewPatterns.txt"", on your Desktop, and then try again."
 	Else
-		Dim ts As TextStream
-		'each new line read in from the text stream
-		Dim ReadLine As String
-		'array of values in each line
-		Dim LineValues() As String
-		
 		Set ts = fso.OpenTextFile("C:\Users\" + uName + "\Desktop\AutoReviewPatterns.txt")
 		
 		Do Until ts.AtEndOfStream
 			ReadLine = ts.ReadLine
 			LineValues = Split(ReadLine, Chr(9))
-			findAndComment LineValues(0), LineValues(1)
+			If LineValues(2) = "Y" Then
+				findAndComment LineValues(0), LineValues(1)
+			End If
 		Loop
 	End If
 End Sub
