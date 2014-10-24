@@ -76,10 +76,10 @@ Sub AutoReview()
 	Dim ReadLine As String
 	Dim ts As TextStream
 	
-	If Not fso.FileExists("C:\Users\" + uName + "\Desktop\AutoReviewPatterns.txt") Then
+	If Not fso.FileExists(Environ("UserProfile") + "\Desktop\AutoReviewPatterns.txt") Then
 		MsgBox "Can't find the patterns file. Put the patterns file, ""AutoReviewPatterns.txt"", on your Desktop, and then try again."
 	Else
-		Set ts = fso.OpenTextFile("C:\Users\" + uName + "\Desktop\AutoReviewPatterns.txt")
+		Set ts = fso.OpenTextFile(Environ("UserProfile") + "\Desktop\AutoReviewPatterns.txt")
 		
 		Do Until ts.AtEndOfStream
 			ReadLine = ts.ReadLine
@@ -90,12 +90,3 @@ Sub AutoReview()
 		Loop
 	End If
 End Sub
-
-
-
-Function uName()
-    Dim nameParts() As String
-    nameParts = Split(Application.UserName, " ")
-    
-    uName = Left(nameParts(0), 1) + nameParts(1)
-End Function
